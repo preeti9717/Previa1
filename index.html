@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="utility.css" />
+
+    <title>'Previa - Web Player: Music for Every Mood'</title>
+  </head>
+  <body>
+    <div class="container flex bg-black">
+      <!-- containr is a main class  and it holds both  left and right classes and flex is a utility class that makes the container a flexbox-->
+
+      <div class="left">
+        <div class="close">
+          <img class="invert" src="close.svg" height="28px" />
+        </div>
+        <div class="home bg-grey rounded m-1 p-1">
+          <div class="logo">
+            <img src="MyDesign.png" alt=" " /> <b>Previa</b>
+            
+
+          </div>
+          <ul>
+            <li id="homeBtn">
+              <img class="invert" src="home.svg" alt="home" /> Home
+            </li>
+            <li id="searchBtn">
+              <img class="invert" src="search.svg" alt="home" /> Search
+            </li>
+          </ul>
+        </div>
+        <div class="library bg-grey rounded m-2 p-1">
+          <div id="hello">
+            <h3>Your Library</h3>
+
+            <button class="bg-grey">
+              <img class="invert" src="playlist.svg" alt="" />
+            </button>
+          </div>
+          <!--existing playlists-->
+          <div class="playlist-list">
+            <div class="playlist-item" data-playlist="Lo-Fi Chill">
+              <img class="invert" src="playlist.svg" alt="playlist" />
+              <span>Lo-Fi Chill</span>
+            </div>
+            <div class="playlist-item" data-playlist="Morning Calm">
+              <img class="invert" src="playlist.svg" alt="playlist" />
+              <span>Morning Calm</span>
+            </div>
+            <div class="playlist-item" data-playlist="Party Booster">
+              <img class="invert" src="playlist.svg" alt="playlist" />
+              <span>Party Booster</span>
+            </div>
+            <div class="playlist-item" data-playlist="Workout Vibes">
+              <img class="invert" src="playlist.svg" alt="playlist" />
+              <span>Workout Vibes</span>
+            </div>
+          </div>
+
+          <!--create playlist box-->
+          <div class="plist rounded ls">
+            <ul>
+              <li><h4>Create your first playlist</h4></li>
+              <li><h6>It's easy, we'll help you</h6></li>
+            </ul>
+            <button class="bt-1 m-2" id="createPlaylistBtn">
+              Create playlist
+            </button>
+          </div>
+          <!--links part-->
+          <div class="footer">
+            <div class="link">
+              <ul class="ls">
+                <li><a href="#"> Legal</a></li>
+                <li><a href="#"> Safety&Privacy Center</a></li>
+                <li><a href="#"> PrivacyPolicy</a></li>
+                <li><a href="#"> Cookies</a></li>
+                <li><a href="#"> About Ads</a></li>
+                <li><a href="#"> Accessibility</a></li>
+              </ul>
+            </div>
+            <button id="mybtn" class="mybtn gb bt-2 m-2 rounded bg-grey">
+              <img class="invert" src="globe.svg" /> English
+            </button>
+          </div>
+        </div>
+
+        <!-- <div class="preview"></div> -->
+      </div>
+
+      <div class="right  rounded">
+        <div class="header">
+          <div class="nav">
+            <img class="invert hamburger" src="hamburger.svg" alt="" />
+
+            <svg
+              id="backBtn"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              color="#ffffff"
+              fill="none"
+              style="cursor: pointer"
+            >
+              <path
+                d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            <svg
+              id="forwardBtn"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              color="#ffffff"
+              fill="none"
+              style="cursor: pointer"
+            >
+              <path
+                d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </div>
+          <div class="buttons">
+            <button class="signupbtn" id="signupBtn">Signup</button>
+            <button class="loginbtn" id="loginBtn">Log in</button>
+          </div>
+        </div>
+
+        <div class="spotifyplaylists">
+          <h1 id="playlistTitle">Trending songs</h1>
+          <div class="cardContainer">
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e026fbb60d6a7e03ccb940a518e"
+                alt="Spotify Image"
+                class="spotify-img"
+                data-songs="songs/Sapphire - (Raag.Fm).mp3"
+                data-title="Sapphire"
+                data-artist="Ed Sheeran"
+              />
+              <h2>Sapphire</h2>
+              <p>Ed Sheeran</p>
+
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02e76275da5828d6f937c3bcf3"
+                alt="Spotify Image"
+                class="spotify-img"
+                data-songs="songs/Jugraafiya - (Raag.Fm).mp3"
+                data-title="Jugraafiya"
+                data-artist="Udit Narayan,Shreya Ghoshal"
+              />
+              <h2>Jugraafiya</h2>
+              <p>Udit Narayan,Shreya Ghoshal</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e023e67a771f28e4e01acda08fb"
+                alt="Spotify Image"
+                class="spotify-img"
+                data-songs="songs/Jhol.mp3"
+                data-title="Jhol"
+                data-artist="Rifat karim"
+              />
+              <h2>Jhol</h2>
+              <p>Rifat karim</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e026d9a2050e82ce05424dca5aa"
+                alt="Spotify Image"
+                class="spotify-img"
+                data-songs="songs/Shree Hanuman Chalisa - (Raag.Fm).mp3"
+                data-title="Shree Hanuman Chalisa"
+                data-artist="Hariharan"
+              />
+              <h2>Hanuman Chalisa</h2>
+              <p>Hariharan</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02373c63a4666fb7193febc167"
+                alt="Album Cover"
+                class="spotify-img"
+                data-songs="songs/Blue - (Raag.Fm).mp3"
+                data-title="Blue"
+                data-artist="Yung kai"
+              />
+
+              <h2>Blue</h2>
+              <p>Yung kai</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e0217875a0610c23d8946454583"
+                alt="Album Cover"
+                class="spotify-img"
+                data-songs="songs/TheNightWeMet.mp3"
+                data-title="The Night We Met"
+                data-artist="Lord Huron"
+              />
+
+              <h2>The Night We Met</h2>
+              <p>Lord Huron</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e0236032cb4acd9df050bc2e197"
+                alt="Album Cover"
+                class="spotify-img"
+                data-songs="songs/Apt.mp3"
+                data-title="APT"
+                data-artist="Rose,Bruno Mars"
+              />
+
+              <h2>APT</h2>
+              <p>ROSE,Bruno Mars</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02ebc8cfac8b586bc475b04918"
+                alt="Album Cover"
+                class="spotify-img"
+                data-songs="songs/Dietmountaindew.mp3"
+                data-title="Diet Mountain Dew"
+                data-artist="Lana Del Ley"
+              />
+
+              <h2>Diet Mountain Dew</h2>
+              <p>Lana Del Rey</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02f6b55ca93bd33211227b502b"
+                alt="Album Cover"
+                class="spotify-img"
+                data-songs="songs/BrunoMars-TheLazySong.mp3"
+                data-title="TheLazySong"
+                data-artist="Bruno Mars"
+              />
+
+              <h2>The Lazy Song</h2>
+              <p>Bruno Mars</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02d9985092cd88bffd97653b58"
+                alt="Album Cover"
+                class="spotify-img"
+                data-songs="songs/luther(with sza).mp3"
+                data-title="luther(with sza)"
+                data-artist="Kendrick Lamar,SZA"
+              />
+
+              <h2>luther(with sza)</h2>
+              <p>Kendrick Lamar,,SZA</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab6761610000517403ae58450e917e4e075f6e1d"
+                alt=""
+                data-songs="/multiple playlists/Workout Vibes/Shaky.mp3"
+                data-title="Shaky"
+                data-artist="Sanju Rathod"
+                class="spotify-img"
+              />
+
+              <h2>Shaky</h2>
+              <p>Sanju Rathod</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02b5a26cb2c2ef2fa440baffb0"
+                alt=""
+                data-songs="/multiple playlists/Workout Vibes/BijleeBijlee.mp3"
+                data-title="Bijlee Bijlee"
+                data-artist="Harrdy Sandhu"
+                class="spotify-img"
+              />
+
+              <h2>Bijlee Bijlee</h2>
+              <p>Harrdy Sandhu</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e023825e6d4d02e4b4c0cec7e1d"
+                alt=""
+                data-title="MIC Drop(Steve Aoki Remix)"
+                data-artist="BTS,Steve Aoki"
+                data-songs="/multiple playlists/Workout Vibes/BTS - MIC Drop (Steve Aoki Remix) (Clean Remix).mp3"
+                class="spotify-img"
+              />
+
+              <h2>MIC Drop(Steve Aoki Remix)</h2>
+              <p>BTS,Steve Aoki</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <!-- party booster playlist -->
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e028863bc11d2aa12b54f5aeb36"
+                alt=""
+                data-songs="/multiple playlists/Party Booster/Blinding Lights - The Weeknd.mp3"
+                data-title="Blinding Lights"
+                data-artist="The Weekend"
+                class="spotify-img"
+              />
+
+              <h2>Blinding Lights</h2>
+              <p>The Weekend</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02c6f7af36ecdc3ed6e0a1f169"
+                alt=""
+                data-songs="/multiple playlists/Party Booster/Dance Monkey - Tones And I.mp3"
+                data-title="Dance Monkey"
+                data-artist="Tones And I"
+                class="spotify-img"
+              />
+
+              <h2>Dance Monkey</h2>
+              <p>Tones And I</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e024bc66095f8a70bc4e6593f4f"
+                alt=""
+                data-songs="/multiple playlists/Party Booster/Dua Lipa - Levitating.mp3"
+                data-title="Levitating"
+                data-artist="Dua Lipa"
+                class="spotify-img"
+              />
+
+              <h2>Levitating</h2>
+              <p>Dua Lipa</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02e419ccba0baa8bd3f3d7abf2"
+                alt=""
+                data-songs="/multiple playlists/Party Booster/Uptown Funk (feat. Bruno Mars) - Mark Ronson.mp3"
+                data-title="Uptown Funk (feat. Bruno Mars)"
+                data-artist="Mark Ronson(feat. Bruno Mars)"
+                class="spotify-img"
+              />
+
+              <h2>Uptown Funk (feat. Bruno Mars)</h2>
+              <p>Mark Ronson(feat. Bruno Mars)</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <!-- Morning Calm -->
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e02373c63a4666fb7193febc167"
+                alt=""
+                data-songs="/multiple playlists/Morning Calm/Blue - (Raag.Fm).mp3"
+                data-title="Blue"
+                data-artist="Yung kai"
+                class="spotify-img"
+              />
+
+              <h2>Blue</h2>
+              <p>Yung kai</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://cdn.pixabay.com/audio/2025/07/01/20-56-32-563_200x200.png"
+                alt=""
+                data-songs="/multiple playlists/Morning Calm/meditation-music-368634.mp3"
+                data-title="meditation-music"
+                data-artist="SigmaMusicArt"
+                class="spotify-img"
+              />
+
+              <h2>meditation-music</h2>
+              <p>SigmaMusicArt</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://i.scdn.co/image/ab67616d00001e0217875a0610c23d8946454583"
+                alt=""
+                data-songs="/multiple playlists/Morning Calm/The-Night-We-Met.mp3"
+                data-title="The-Night-We-Met"
+                data-artist="Lord Huron"
+                class="spotify-img"
+              />
+
+              <h2>The-Night-We-Met</h2>
+              <p>Lord Huron</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <!-- Lo-Fi Chill -->
+
+            <div class="card">
+              <img
+                src="https://source.boomplaymusic.com/group10/M00/09/12/50443fa0e4104f829239e33cb34ff43c_464_464.webp"
+                alt="Relaxing Music"
+                data-songs="/multiple playlists/Lo-Fi Chill/chillout-cafe-4176.mp3"
+                data-title="chillout-cafe"
+                data-artist=""
+                class="spotify-img"
+              />
+
+              <h2>chillout-cafe</h2>
+              <p>Relaxing music</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://cdn.pixabay.com/audio/2025/06/29/17-43-14-660_200x200.jpg"
+                alt=""
+                data-songs="/multiple playlists/Lo-Fi Chill/crystalline-flow_medium-1-367713.mp3"
+                data-title="crystalline-flow"
+                data-artist="Grand_Project"
+                class="spotify-img"
+              />
+
+              <h2>crystalline-flow</h2>
+              <p>Grand_Project</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+
+            <div class="card">
+              <img
+                src="https://cdn.pixabay.com/audio/2025/01/05/05-57-08-998_200x200.jpg"
+                alt=""
+                data-songs="/multiple playlists/Lo-Fi Chill/paper-planes-chill-future-beat-283956.mp3"
+                data-title="paper-planes-chill-future-beat"
+                data-artist="kulakovka"
+                class="spotify-img"
+              />
+
+              <h2>paper-planes</h2>
+              <p>kulakovka</p>
+              <div class="play">
+                <img src="playB.png" alt="play" />
+              </div>
+            </div>
+          </div>
+          <div class="playbar">
+            <div class="seekbar">
+              <div class="circle"></div>
+            </div>
+            <div class="abovebar">
+              <div class="songinfo">
+                <img
+                  id="currentSongImg"
+                  src=""
+                  alt=""
+                  style="
+                    display: none;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 4px;
+                    margin-right: 10px;
+                  "
+                />
+                <span id="songText"></span>
+              </div>
+
+              <div class="songbuttons">
+                <img id="previous" src="previous.svg" alt="" />
+                <img id="play" src="play.svg" alt="" class="bold" />
+                <img id="next" src="next.svg" alt="" />
+              </div>
+
+              <div class="right-controls">
+                <div class="songtime"></div>
+                <div class="volume-control">
+                  <svg class="volume-icon" viewBox="0 0 24 24">
+                    <path
+                      d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+                    />
+                  </svg>
+                  <input
+                    type="range"
+                    class="volume-slider"
+                    min="0"
+                    max="100"
+                    value="50"
+                    id="volumeSlider"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script1.js"></script>
+  </body>
+</html>
