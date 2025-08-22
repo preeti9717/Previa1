@@ -4,6 +4,7 @@ let currentAudio = null;
 let songs = [];
 
 function secondsToMinutesSeconds(seconds) {
+  if (isNaN(seconds) || seconds < 0) return "00:00";
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
@@ -13,44 +14,34 @@ function playMusic(src, title = "", artist = "", imgSrc = "") {
   currentAudio?.pause();
   currentAudio = new Audio(src);
 
-  // Mobile compatibility - preload and prepare audio
-  currentAudio.preload = 'auto';
-  currentAudio.load();
+  // Initialize display immediately
+  document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
+  document.querySelector(".circle").style.left = "0%";
+
+  // Wait for metadata to load on mobile
+  currentAudio.addEventListener("loadedmetadata", () => {
+    const duration = currentAudio.duration || 0;
+    document.querySelector(".songtime").innerHTML = `00:00/${secondsToMinutesSeconds(duration)}`;
+  });
 
   // Attach the timeupdate listener here
   currentAudio.addEventListener("timeupdate", () => {
-    document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(
-      currentAudio.currentTime
-    )}/${secondsToMinutesSeconds(currentAudio.duration)}`;
-    document.querySelector(".circle").style.left =
-      (currentAudio.currentTime / currentAudio.duration) * 100 + "%";
+    const currentTime = currentAudio.currentTime || 0;
+    const duration = currentAudio.duration || 0;
+    document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(currentTime)}/${secondsToMinutesSeconds(duration)}`;
+    if (duration > 0) {
+      document.querySelector(".circle").style.left = (currentTime / duration) * 100 + "%";
+    }
   });
 
-  //add an event listener to seekbar with touch support
-  const seekbar = document.querySelector(".seekbar");
-  const handleSeek = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    let percent = ((clientX - rect.left) / rect.width) * 100;
-    percent = Math.max(0, Math.min(100, percent));
+  //add an event listener to seekbar
+  document.querySelector(".seekbar").addEventListener("click", (e) => {
+    let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
     document.querySelector(".circle").style.left = percent + "%";
     currentAudio.currentTime = (currentAudio.duration * percent) / 100;
-  };
-  
-  seekbar.addEventListener("click", handleSeek);
-  seekbar.addEventListener("touchstart", handleSeek);
-  
-  // Mobile-friendly play with error handling
-  const playPromise = currentAudio.play();
-  if (playPromise !== undefined) {
-    playPromise.then(() => {
-      document.getElementById("play").src = "pause.svg";
-    }).catch(error => {
-      console.log("Playback failed:", error);
-      // On mobile, show play button if autoplay fails
-      document.getElementById("play").src = "play.svg";
-    });
-  }
+  });
+  currentAudio.play().catch(console.error);
+  play.src = "pause.svg";
   
   // Update song image and text
   const songImg = document.getElementById('currentSongImg');
@@ -64,7 +55,6 @@ function playMusic(src, title = "", artist = "", imgSrc = "") {
   }
   
   songText.innerHTML = `${title} — ${artist}`;
-  document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 }
 
 async function getSongs() {
@@ -80,7 +70,7 @@ async function getSongs() {
 
 function setupImageClickHandlers() {
   document.querySelectorAll(".spotify-img").forEach((img, index) => {
-    const handleClick = () => {
+    img.onclick = () => {
       const song = img.dataset.songs;
       const title = img.dataset.title;
       const artist = img.dataset.artist;
@@ -95,26 +85,12 @@ function setupImageClickHandlers() {
       if (!allSongs.length) allSongs = getAllSongs();
 
       if (currentAudio?.src === src) {
-        if (currentAudio.paused) {
-          currentAudio.play().then(() => {
-            document.getElementById("play").src = "pause.svg";
-          }).catch(console.error);
-        } else {
-          currentAudio.pause();
-          document.getElementById("play").src = "play.svg";
-        }
+        currentAudio.paused ? currentAudio.play() : currentAudio.pause();
         return;
       } else {
         playMusic(src, title, artist, imgSrc);
       }
     };
-    
-    // Add both click and touch events for mobile
-    img.addEventListener('click', handleClick);
-    img.addEventListener('touchend', (e) => {
-      e.preventDefault();
-      handleClick();
-    });
   });
 }
 
@@ -129,28 +105,17 @@ async function main() {
 
 setupImageClickHandlers();
 
-//attach an event listener to play,next and previous buttons with mobile support
-const playBtn = document.getElementById("play");
-const handlePlayPause = () => {
+//attach an event listener to play,next and previous buttons
+document.getElementById("play").addEventListener("click", () => {
   if (currentAudio) {
     if (currentAudio.paused) {
-      currentAudio.play().then(() => {
-        playBtn.src = "pause.svg";
-      }).catch(error => {
-        console.log("Play failed:", error);
-        playBtn.src = "play.svg";
-      });
+      currentAudio.play();
+      document.getElementById("play").src = "pause.svg";
     } else {
       currentAudio.pause();
-      playBtn.src = "play.svg";
+      document.getElementById("play").src = "play.svg";
     }
   }
-};
-
-playBtn.addEventListener("click", handlePlayPause);
-playBtn.addEventListener("touchend", (e) => {
-  e.preventDefault();
-  handlePlayPause();
 });
 
 let currentSongIndex = 0;
