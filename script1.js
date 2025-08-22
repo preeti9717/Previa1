@@ -4,7 +4,6 @@ let currentAudio = null;
 let songs = [];
 
 function secondsToMinutesSeconds(seconds) {
-  if (isNaN(seconds) || seconds < 0) return "00:00";
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
   return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
@@ -14,24 +13,13 @@ function playMusic(src, title = "", artist = "", imgSrc = "") {
   currentAudio?.pause();
   currentAudio = new Audio(src);
 
-  // Initialize display immediately
-  document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
-  document.querySelector(".circle").style.left = "0%";
-
-  // Wait for metadata to load on mobile
-  currentAudio.addEventListener("loadedmetadata", () => {
-    const duration = currentAudio.duration || 0;
-    document.querySelector(".songtime").innerHTML = `00:00/${secondsToMinutesSeconds(duration)}`;
-  });
-
   // Attach the timeupdate listener here
   currentAudio.addEventListener("timeupdate", () => {
-    const currentTime = currentAudio.currentTime || 0;
-    const duration = currentAudio.duration || 0;
-    document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(currentTime)}/${secondsToMinutesSeconds(duration)}`;
-    if (duration > 0) {
-      document.querySelector(".circle").style.left = (currentTime / duration) * 100 + "%";
-    }
+    document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(
+      currentAudio.currentTime
+    )}/${secondsToMinutesSeconds(currentAudio.duration)}`;
+    document.querySelector(".circle").style.left =
+      (currentAudio.currentTime / currentAudio.duration) * 100 + "%";
   });
 
   //add an event listener to seekbar
@@ -55,6 +43,7 @@ function playMusic(src, title = "", artist = "", imgSrc = "") {
   }
   
   songText.innerHTML = `${title} — ${artist}`;
+  document.querySelector(".songtime").innerHTML = "00:00 / 00:00";
 }
 
 async function getSongs() {
