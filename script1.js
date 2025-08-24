@@ -15,21 +15,28 @@ function playMusic(src, title = "", artist = "", imgSrc = "") {
 
   // Attach the timeupdate listener here
   currentAudio.addEventListener("timeupdate", () => {
-    document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(
-      currentAudio.currentTime
-    )}/${secondsToMinutesSeconds(currentAudio.duration)}`;
-    document.querySelector(".circle").style.left =
-      (currentAudio.currentTime / currentAudio.duration) * 100 + "%";
+    if (currentAudio && currentAudio.duration && !isNaN(currentAudio.duration)) {
+      document.querySelector(".songtime").innerHTML = `${secondsToMinutesSeconds(
+        currentAudio.currentTime
+      )}/${secondsToMinutesSeconds(currentAudio.duration)}`;
+      document.querySelector(".circle").style.left =
+        (currentAudio.currentTime / currentAudio.duration) * 100 + "%";
+    }
   });
 
   //add an event listener to seekbar
   document.querySelector(".seekbar").addEventListener("click", (e) => {
-    let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
-    document.querySelector(".circle").style.left = percent + "%";
-    currentAudio.currentTime = (currentAudio.duration * percent) / 100;
+    if (currentAudio && currentAudio.duration) {
+      let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100;
+      document.querySelector(".circle").style.left = percent + "%";
+      currentAudio.currentTime = (currentAudio.duration * percent) / 100;
+    }
   });
-  currentAudio.play().catch(console.error);
-  play.src = "pause.svg";
+  currentAudio.play().catch(error => {
+    console.error("Playback failed:", error);
+    document.getElementById("play").src = "play.svg";
+  });
+  document.getElementById("play").src = "pause.svg";
   
   // Update song image and text
   const songImg = document.getElementById('currentSongImg');
@@ -47,14 +54,17 @@ function playMusic(src, title = "", artist = "", imgSrc = "") {
 }
 
 async function getSongs() {
-  let res = await fetch("http://127.0.0.1:3000/songs/");
-  let text = await res.text();
-  let div = document.createElement("div");
-  div.innerHTML = text;
-
-  return [...div.getElementsByTagName("a")]
-    .map((a) => a.href)
-    .filter((href) => href.endsWith(".mp3"));
+  // Return static list of songs since we're not using a server
+  return [
+    "songs/Sapphire - (Raag.Fm).mp3",
+    "songs/Jugraafiya - (Raag.Fm).mp3", 
+    "songs/Jhol.mp3",
+    "songs/Shree Hanuman Chalisa - (Raag.Fm).mp3",
+    "songs/Apt.mp3",
+    "songs/Dietmountaindew.mp3",
+    "songs/BrunoMars-TheLazySong.mp3",
+    "songs/luther(with sza).mp3"
+  ];
 }
 
 function setupImageClickHandlers() {
@@ -67,7 +77,7 @@ function setupImageClickHandlers() {
 
       if (!song) return;
 
-      const src = "http://127.0.0.1:3000/" + encodeURI(song);
+      const src = encodeURI(song);
       
       // Set current song index for navigation
       currentSongIndex = index;
@@ -118,7 +128,7 @@ let currentHistoryIndex = -1;
 function getAllSongs() {
   const cards = document.querySelectorAll('.spotify-img');
   return Array.from(cards).map(img => ({
-    src: "http://127.0.0.1:3000/" + encodeURI(img.dataset.songs),
+    src: encodeURI(img.dataset.songs),
     title: img.dataset.title,
     artist: img.dataset.artist
   }));
@@ -385,7 +395,7 @@ function performSearch() {
 }
 
 function playSearchResult(src, title, artist) {
-  playMusic("http://127.0.0.1:3000/" + encodeURI(src), title, artist);
+  playMusic(encodeURI(src), title, artist);
 }
 
 function showSignupForm() {
